@@ -16,7 +16,7 @@ module Pardot
     def post object, path, params = {}, num_retries = 0
       smooth_params object, params
       full_path = fullpath object, path
-      check_response self.class.post(full_path, :query => params)
+      check_response self.class.post(full_path, :body => params)
       
     rescue Pardot::ExpiredApiKeyError => e
       handle_expired_api_key :post, object, path, params, num_retries, e
@@ -39,14 +39,15 @@ module Pardot
       return if object == "login"
       
       authenticate unless authenticated?
-      params.merge! :user_key => @user_key, :api_key => @api_key, :format => @format
+      params.merge! :user_key => @user_key, :api_key => @api_key, :format => 'json', :output => @format, :options => { :headers => { 'ContentType' => 'application/json' } }
     end
     
     def check_response http_response
-      rsp = http_response["rsp"]
-      
-      error = rsp["err"] if rsp
-      error ||= "Unknown Failure: #{rsp.inspect}" if rsp && rsp["stat"] == "fail"
+      rsp = http_response["rsp"] if http_response.content_type == 'text/xml'
+      rsp = rsp || http_response || {}
+      error = rsp["err"]
+      status = rsp["@attributes"].try(:[],"stat") || rsp["stat"]
+      error ||= "Unknown Failure: #{rsp.inspect}" if status == "fail"
       content = error['__content__'] if error.is_a?(Hash)
       
       if [error, content].include?("Invalid API key or user key") && @api_key
@@ -54,7 +55,7 @@ module Pardot
       end
       
       raise ResponseError.new error if error
-      
+
       rsp
     end
     

@@ -4,8 +4,7 @@ module Pardot
     
     include HTTParty
     base_uri 'https://pi.pardot.com'
-    format :xml
-    
+
     include Authentication
     include Http
 
