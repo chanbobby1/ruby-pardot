@@ -13,5 +13,6 @@ require 'pardot/objects/users'
 require 'pardot/objects/visitors'
 require 'pardot/objects/visitor_activities'
 require 'pardot/objects/visits'
+require 'pardot/objects/emailer'
 
 require 'pardot/client'
