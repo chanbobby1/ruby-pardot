@@ -23,7 +23,7 @@ module Pardot
         end
 
         def assign_by_id id, params
-          post "/do/assign/id/#{CGI::escape(id)}", params
+          post "/do/assign/id/#{CGI::escape(id.to_s)}", params
         end
 
         def create email, params = {}
@@ -35,7 +35,7 @@ module Pardot
         end
 
         def read_by_id id, params = {}
-          post "/do/read/id/#{CGI::escape(id)}", params
+          post "/do/read/id/#{CGI::escape(id.to_s)}", params
         end
 
         def update_by_email email, params = {}
@@ -43,7 +43,7 @@ module Pardot
         end
 
         def update_by_id id, params = {}
-          post "/do/update/id/#{CGI::escape(id)}", params
+          post "/do/update/id/#{CGI::escape(id.to_s)}", params
         end
 
         def upsert_by_email email, params = {}
@@ -51,7 +51,7 @@ module Pardot
         end
 
         def upsert_by_id id, params = {}
-          post "/do/upsert/id/#{CGI::escape(id)}", params
+          post "/do/upsert/id/#{CGI::escape(id.to_s)}", params
         end
 
         protected

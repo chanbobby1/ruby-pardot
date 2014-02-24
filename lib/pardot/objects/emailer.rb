@@ -13,7 +13,7 @@ module Pardot
         end
 
         def send_by_id id, params = {}
-          post "/do/send/prospect_id/#{CGI::escape(id)}", params
+          post "/do/send/prospect_id/#{CGI::escape(id.to_s)}", params
         end
 
         def send_by_email email, params = {}

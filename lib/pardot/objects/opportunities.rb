@@ -28,11 +28,11 @@ module Pardot
         end
 
         def read_by_id id, params = {}
-          post "/do/read/id/#{CGI::escape(id)}", params
+          post "/do/read/id/#{CGI::escape(id.to_s)}", params
         end
 
         def update_by_id id, params = {}
-          post "/do/update/id/#{CGI::escape(id)}", params
+          post "/do/update/id/#{CGI::escape(id.to_s)}", params
         end
 
         protected
