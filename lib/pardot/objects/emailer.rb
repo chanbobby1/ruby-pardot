@@ -13,11 +13,11 @@ module Pardot
         end
 
         def send_by_id id, params = {}
-          post "/do/send/prospect_id/#{id}", params
+          post "/do/send/prospect_id/#{CGI::escape(id)}", params
         end
 
         def send_by_email email, params = {}
-          post "/do/send/prospect_email/#{email}", params
+          post "/do/send/prospect_email/#{CGI::escape(email)}", params
         end
 
         def send_by_list_ids campaign_id, list_ids, params
