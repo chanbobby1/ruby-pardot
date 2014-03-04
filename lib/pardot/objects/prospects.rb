@@ -54,6 +54,14 @@ module Pardot
           post "/do/upsert/id/#{CGI::escape(id.to_s)}", params
         end
 
+        def delete_by_email email
+          post "/do/delete/email/#{CGI::escape(email)}"
+        end
+
+        def delete_by_id id
+          post "/do/delete/id/#{CGI::escape(id.to_s)}"
+        end
+
         protected
 
         def get path, params = {}, result = "prospect"
